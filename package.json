@@ -1,0 +1,45 @@
+{
+  "name": "es-index-migration",
+  "version": "1.0.0",
+  "description": "Easy ElasticSearch index migration",
+  "main": "./index.ts",
+  "author": "Pedro Ribeiro",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "dependencies": {
+    "elasticsearch": "^15.4.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "@babel/preset-typescript": "^7.10.1",
+    "@types/elasticsearch": "^5.0.32",
+    "@types/jest": "^23.3.13",
+    "@types/node": "^10.12.18",
+    "babel-jest": "^26.0.1",
+    "jest": "^23.6.0",
+    "jest-junit": "^6.3.0",
+    "ts-jest": "^23.10.5",
+    "typescript": "^3.9.5"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "ts"
+    ],
+    "rootDir": "tests",
+    "testRegex": ".spec.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/dist/"
+    ],
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node"
+  }
+}
