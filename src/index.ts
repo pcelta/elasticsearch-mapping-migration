@@ -1,7 +1,6 @@
 'use strict'
 
 const chalk = require('chalk');
-const clear = require('clear');
 const figlet = require('figlet');
 const { createCommand } = require('commander');
 

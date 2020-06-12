@@ -8,8 +8,8 @@
   "scripts": {
     "build": "tsc",
     "test": "jest",
-    "start:dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
-    "es-migration": "node -r ts-node/register src/index.ts"
+    "es-migration": "node -r ts-node/register dist/index.js",
+    "es-migration:dev": "node -r ts-node/register src/index.ts"
   },
   "dependencies": {
     "balanced-match": "^1.0.0",
