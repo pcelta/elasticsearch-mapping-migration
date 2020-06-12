@@ -5,22 +5,21 @@ import { Command } from 'commander';
 import { CommandInterface } from './interface/command.interface';
 import { MigrateCommand } from './command/migrate.command';
 import DependencyContainer from 'tsyringe/dist/typings/types/dependency-container';
+import { Config } from './config';
 const { createCommand } = require('commander');
 
 export class DILoader {
   public static load(): DependencyContainer {
+    container.register<Config>(Config, {
+      useFactory: (c) => {
+        return new Config(process.env);
+      }
+    });
+
     container.register<Client>(Client, {
       useFactory: (c) => {
-        console.log('client bootstrapping');
-        const config = {
-          host: {
-            protocol: process.env.ESMIGRATION_PROTOCOL,
-            host: process.env.ESMIGRATION_HOST,
-            port: process.env.ESMIGRATION_PORT,
-          },
-          apiVersion: '5.6',
-        };
-        return new Client(config);
+        const config: Config = c.resolve(Config);
+        return new Client(config.getElasticSearchConfig());
       }
     });
 
