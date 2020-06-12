@@ -8,6 +8,7 @@ export class Config {
   public readonly esProtocol: string;
   public readonly rootDir: string;
   public readonly migrationListFile: string;
+  public readonly migrationIndex: string;
 
   constructor(private env: any) {
     this.esHost = env.ESMIGRATION_HOST;
@@ -15,6 +16,7 @@ export class Config {
     this.esProtocol = env.ESMIGRATION_PROTOCOL;
     this.migrationListFile = env.ESMIGRATION_MIGRATION_LIST_FILE;
     this.rootDir = env.INIT_CWD;
+    this.migrationIndex = env.ESMIGRATION_MIGRATION_INDEX;
   }
 
   public getElasticSearchConfig(): ConfigOptions {

@@ -6,10 +6,12 @@ export class CommandManager {
   }
 
   public async boot(): Promise<void>  {
+
+    const migrateCommand = this.commander.createCommand('migrate');
     await this.commands.map((command) => {
-      command.register(this.commander)
+      command.register(migrateCommand);
     });
 
-    this.commander.parse(this.process.argv);
+    migrateCommand.parse(this.process.argv);
   }
 }

@@ -6,6 +6,7 @@ import { CommandInterface } from './interface/command.interface';
 import { MigrateCommand } from './command/migrate.command';
 import DependencyContainer from 'tsyringe/dist/typings/types/dependency-container';
 import { Config } from './config';
+import { InitCommand } from './command/init.command';
 const { createCommand } = require('commander');
 
 export class DILoader {
@@ -28,7 +29,9 @@ export class DILoader {
         const commander: Command = createCommand();
         const commands: CommandInterface[] = [
           c.resolve(MigrateCommand),
+          c.resolve(InitCommand),
         ];
+
         return new CommandManager(process, commander, commands);
       }
     });
