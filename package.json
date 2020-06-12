@@ -2,15 +2,22 @@
   "name": "es-index-migration",
   "version": "1.0.0",
   "description": "Easy ElasticSearch index migration",
-  "main": "./index.ts",
+  "main": "./dist/index.ts",
   "author": "Pedro Ribeiro",
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "test": "jest"
+    "test": "jest",
+    "start:dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
+    "es-migration": "node -r ts-node/register src/index.ts"
   },
   "dependencies": {
-    "elasticsearch": "^15.4.1"
+    "balanced-match": "^1.0.0",
+    "chalk": "^4.1.0",
+    "commander": "^5.1.0",
+    "elasticsearch": "^15.4.1",
+    "figlet": "^1.4.0",
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",
@@ -23,7 +30,10 @@
     "jest": "^23.6.0",
     "jest-junit": "^6.3.0",
     "ts-jest": "^23.10.5",
-    "typescript": "^3.9.5"
+    "typescript": "^3.9.5",
+    "ts-node": "^7.0.1",
+    "tsconfig-paths": "^3.7.0",
+    "nodemon": "^1.18.9"
   },
   "jest": {
     "moduleFileExtensions": [

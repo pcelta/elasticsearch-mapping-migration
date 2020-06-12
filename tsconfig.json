@@ -2,12 +2,18 @@
   "compilerOptions": {
     "declarationDir": "./dist",
     "module": "commonjs",
+    "strict": true,
     "noImplicitAny": true,
     "lib": ["es2017", "es7", "es6"],
-    "target": "es5",
+    "target": "es6",
+    "sourceMap": true,
     "declaration": true,
     "outDir": "./dist",
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "baseUrl": "./",
+    "rootDir": "src",
+    "esModuleInterop": true,
+    "resolveJsonModule": true
   },
   "include": [
     "src/**/*"
