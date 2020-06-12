@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Easy ElasticSearch index migration",
   "main": "./dist/index.ts",
+  "bin":{
+    "es-migration": "./dist/index.js"
+  },
   "author": "Pedro Ribeiro",
   "license": "MIT",
   "scripts": {
