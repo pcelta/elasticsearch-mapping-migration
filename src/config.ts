@@ -7,7 +7,7 @@ export class Config {
   constructor(private env: any) {
     this.esHost = env.ESMIGRATION_HOST;
     this.esPort = env.ESMIGRATION_PORT;
-    this.esScheme = env.ESMIGRATION_SCHEME;
+    this.esScheme = env.ESMIGRATION_PROTOCOL;
     this.migrationsFile = env.ESMIGRATION_MIGRATIONS_FILE;
   }
 }

@@ -2,30 +2,20 @@
 
 'use strict';
 
-import { Config } from './config';
-import { Command } from 'commander';
-import { CommandManager } from './command-manager';
-import { CommandInterface } from './interface/command.interface';
-import { MigrateCommand } from './command/migrate.command';
-
+import "reflect-metadata";
 require('dotenv').config();
+
+import { DILoader } from './di-loader';
+import DependencyContainer from 'tsyringe/dist/typings/types/dependency-container';
+import { CommandManager } from './command-manager';
 
 const chalk = require('chalk');
 const figlet = require('figlet');
-const { createCommand } = require('commander');
-
 console.log(
   chalk.red(
     figlet.textSync('es-migration-cli', { horizontalLayout: 'full' })
   )
 );
 
-const config: Config = new Config(process.env);
-
-
-const commander: Command = createCommand();
-const commands: CommandInterface[] = [
-  new MigrateCommand(),
-];
-const commandManager: CommandManager = new CommandManager(process, commander, commands);
-commandManager.boot();
+const container: DependencyContainer = DILoader.load();
+container.resolve(CommandManager).boot();
