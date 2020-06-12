@@ -4,14 +4,15 @@
   "description": "Easy ElasticSearch index migration",
   "main": "./dist/index.ts",
   "bin":{
-    "es-migration": "./dist/index.js"
+    "es-migration": "./bin/index.js"
   },
   "author": "Pedro Ribeiro",
   "license": "MIT",
   "scripts": {
     "build": "tsc",
     "test": "jest",
-    "es-migration": "node -r ts-node/register dist/index.js",
+    "preinstall": "yarn run build",
+    "es-migration": "node -r ts-node/register bin/index.js",
     "es-migration:dev": "node -r ts-node/register src/index.ts"
   },
   "dependencies": {
@@ -52,7 +53,7 @@
     },
     "coveragePathIgnorePatterns": [
       "/node_modules/",
-      "/dist/"
+      "/bin/"
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
