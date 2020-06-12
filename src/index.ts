@@ -2,6 +2,12 @@
 
 'use strict';
 
+import { Config } from './config';
+import { Command } from 'commander';
+import { CommandManager } from './command-manager';
+import { CommandInterface } from './interface/command.interface';
+import { MigrateCommand } from './command/migrate.command';
+
 require('dotenv').config();
 
 const chalk = require('chalk');
@@ -14,13 +20,12 @@ console.log(
   )
 );
 
-const commandManager = createCommand();
+const config: Config = new Config(process.env);
 
-commandManager.command('migrate')
-  .description('Perform migrations on Elastic Search Mapping Indexes')
-  .action(() => {
-    console.log('setup for %s env(s) with %s mode');
-  });
 
-commandManager.parse(process.argv);
-
+const commander: Command = createCommand();
+const commands: CommandInterface[] = [
+  new MigrateCommand(),
+];
+const commandManager: CommandManager = new CommandManager(process, commander, commands);
+commandManager.boot();
