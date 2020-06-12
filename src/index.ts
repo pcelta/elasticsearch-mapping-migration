@@ -1,5 +1,7 @@
 'use strict'
 
+require('dotenv').config();
+
 const chalk = require('chalk');
 const figlet = require('figlet');
 const { createCommand } = require('commander');
