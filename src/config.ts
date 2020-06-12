@@ -7,13 +7,13 @@ export class Config {
   public readonly esPort: string;
   public readonly esProtocol: string;
   public readonly rootDir: string;
-  public readonly migrationsFile: string;
+  public readonly migrationListFile: string;
 
   constructor(private env: any) {
     this.esHost = env.ESMIGRATION_HOST;
     this.esPort = env.ESMIGRATION_PORT;
     this.esProtocol = env.ESMIGRATION_PROTOCOL;
-    this.migrationsFile = env.ESMIGRATION_MIGRATIONS_FILE;
+    this.migrationListFile = env.ESMIGRATION_MIGRATION_LIST_FILE;
     this.rootDir = env.INIT_CWD;
   }
 
