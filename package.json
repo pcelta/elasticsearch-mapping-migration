@@ -49,16 +49,18 @@
       "js",
       "ts"
     ],
-    "rootDir": "tests",
-    "testRegex": ".spec.ts$",
+    "rootDir": "./",
+    "testRegex": ".test.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
     "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "/bin/"
+      "./node_modules/",
+      "./bin/",
+      "./tests/"
     ],
-    "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "coverageDirectory": "./coverage",
+    "testEnvironment": "node",
+    "setupTestFrameworkScriptFile": "./tests/bootstrap.ts"
   }
 }

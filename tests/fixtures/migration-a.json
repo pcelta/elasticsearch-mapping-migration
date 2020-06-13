@@ -1,0 +1,17 @@
+{
+  "index_target": "test_index",
+  "type": "test_field_name",
+  "migration" : {
+    "properties": {
+      "test_field_name": {
+        "type": "text",
+        "fielddata": true,
+        "fields": {
+          "raw": {
+            "type": "keyword"
+          }
+        }
+      }
+    }
+  }
+}
