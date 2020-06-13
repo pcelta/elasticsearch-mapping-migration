@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "declarationDir": "./dist",
+    "declarationDir": "./bin",
     "module": "commonjs",
     "strict": true,
     "noImplicitAny": true,

@@ -7,6 +7,7 @@ import { MigrateCommand } from './command/migrate.command';
 import DependencyContainer from 'tsyringe/dist/typings/types/dependency-container';
 import { Config } from './config';
 import { InitCommand } from './command/init.command';
+import { Output } from './Output';
 const { createCommand } = require('commander');
 
 export class DILoader {
@@ -21,6 +22,17 @@ export class DILoader {
       useFactory: (c) => {
         const config: Config = c.resolve(Config);
         return new Client(config.getElasticSearchConfig());
+      }
+    });
+
+    container.register<Output>(Output, {
+      useFactory: (c) => {
+        const Cli3Table = require('cli-table3');
+        const table = new Cli3Table({
+          head: ['Index', 'Timestamp', 'File', 'Status']
+        });
+
+        return new Output(table, require('chalk'), console);
       }
     });
 

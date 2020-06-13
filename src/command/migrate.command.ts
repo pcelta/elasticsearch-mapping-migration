@@ -5,12 +5,14 @@ import * as path from "path";
 import { Config } from '../config';
 import { MigrationInterface } from '../interface/migration.interface';
 import { MigrationRepository } from '../repository/migration.repository';
+import { Output } from '../Output';
 
 @injectable()
 export class MigrateCommand {
   constructor(
     @inject(Config) private config: Config,
-    @inject(MigrationRepository) private repository: MigrationRepository) {
+    @inject(MigrationRepository) private repository: MigrationRepository,
+    @inject(Output) private output: Output) {
 
   }
 
@@ -19,6 +21,8 @@ export class MigrateCommand {
   }
 
   public async run(): Promise<void> {
+    this.output.start('Performing migrations');
+
     const migrationListPath: string = path.join(this.config.rootDir, '/', this.config.migrationListFile);
     const migrationList: any[] = this.getFileContentAsObject(migrationListPath);
 
@@ -38,15 +42,17 @@ export class MigrateCommand {
         body: rawMigration.migration,
         file: migrationFileName,
       };
-
+      this.output.info('All migrated!');
       if (await this.repository.exists(migration)) {
-        console.log('skipping....');
         continue;
       }
 
       await this.repository.execute(migration);
       await this.repository.commit(migration);
+      this.output.success(migration);
     }
+
+    this.output.info('All migrated!');
   }
 
   private getFileContentAsObject(filePath: string): any {

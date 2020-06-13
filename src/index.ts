@@ -13,7 +13,7 @@ const chalk = require('chalk');
 const figlet = require('figlet');
 console.log(
   chalk.red(
-    figlet.textSync('es-migration-cli', { horizontalLayout: 'full' })
+    figlet.textSync('es-migration', { horizontalLayout: 'default' })
   )
 );
 
