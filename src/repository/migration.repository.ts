@@ -38,6 +38,7 @@ export class MigrationRepository {
 
   public async exists(migration: MigrationInterface): Promise<boolean> {
     const searchParams: SearchParams = {
+      size: 1,
       index: this.config.migrationIndex,
       body: {
         query: {
