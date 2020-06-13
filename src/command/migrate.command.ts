@@ -44,6 +44,7 @@ export class MigrateCommand {
         continue;
       }
 
+      await this.repository.execute(migration);
       await this.repository.commit(migration);
     }
   }
