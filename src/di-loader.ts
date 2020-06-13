@@ -32,7 +32,7 @@ export class DILoader {
           head: ['Index', 'Timestamp', 'File', 'Status']
         });
 
-        return new Output(table, require('chalk'), console);
+        return new Output(table, require('chalk'), console, process);
       }
     });
 

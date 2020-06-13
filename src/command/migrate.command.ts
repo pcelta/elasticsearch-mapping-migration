@@ -21,11 +21,19 @@ export class MigrateCommand {
   }
 
   public async run(): Promise<void> {
+    const migrationListPath: string = path.join(this.config.rootDir, '/', this.config.migrationListFile);
+
+    let migrationList: any[] = [];
+    try {
+      migrationList = this.getFileContentAsObject(migrationListPath);
+    } catch (e) {
+      this.output.error('Your migrations.json file is invalid.', e, true);
+      return;
+    }
+
     this.output.start('Performing migrations');
 
-    const migrationListPath: string = path.join(this.config.rootDir, '/', this.config.migrationListFile);
-    const migrationList: any[] = this.getFileContentAsObject(migrationListPath);
-
+    let totalExecuted: number = 0;
     const total: number = migrationList.length;
     for (let i: number = 0; i < total; i++) {
       const migrationReference: any = migrationList[i];
@@ -42,17 +50,26 @@ export class MigrateCommand {
         body: rawMigration.migration,
         file: migrationFileName,
       };
-      this.output.info('All migrated!');
+
       if (await this.repository.exists(migration)) {
         continue;
       }
 
-      await this.repository.execute(migration);
+      await this.repository.execute(migration).catch((e) => {
+        this.output.failed(migration, e, true);
+      });
+
       await this.repository.commit(migration);
       this.output.success(migration);
+      totalExecuted++;
     }
 
-    this.output.info('All migrated!');
+    if (totalExecuted > 0) {
+      this.output.info(`${totalExecuted} migration(s) have been executed`);
+      this.output.info('All migrated!');
+    } else {
+      this.output.info('Nothing to be migrated. All good! =)');
+    }
   }
 
   private getFileContentAsObject(filePath: string): any {

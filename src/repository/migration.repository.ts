@@ -12,7 +12,7 @@ export class MigrationRepository {
   constructor(@inject(Client) private client: Client, @inject(Config) private config: Config) {
   }
 
-  public async execute(migration: MigrationInterface): Promise<void> {
+  public async execute(migration: MigrationInterface): Promise<any> {
     const mappingUpdate: IndicesPutMappingParams = {
       index: migration.index,
       body: migration.body,
@@ -20,7 +20,7 @@ export class MigrationRepository {
       updateAllTypes: true,
     };
 
-    this.client.indices.putMapping(mappingUpdate);
+    return this.client.indices.putMapping(mappingUpdate);
   }
 
   public async commit(migration: MigrationInterface): Promise<void> {
@@ -32,7 +32,6 @@ export class MigrationRepository {
         file: migration.file,
       },
     };
-    console.log(JSON.stringify(record));
     this.client.index(record);
   }
 
