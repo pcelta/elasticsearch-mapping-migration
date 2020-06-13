@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 import {
-  Client, IndicesCreateParams,
+  Client, IndicesCreateParams, IndicesExistsParams,
   IndicesPutMappingParams,
   SearchParams,
 } from 'elasticsearch';
@@ -71,5 +71,13 @@ export class MigrationRepository {
       }
     };
     this.client.indices.create(params);
+  }
+
+  public async indexExists(): Promise<any>  {
+    const params: IndicesExistsParams = {
+      index: this.config.migrationIndex
+    };
+
+    return this.client.indices.exists(params);
   }
 }
