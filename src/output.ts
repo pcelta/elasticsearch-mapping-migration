@@ -54,7 +54,6 @@ export class Output {
     this.console.log(this.chalk.yellow(textInfo));
   }
 
-
   public error(textInfo: string, e: Error, exitWithError: boolean): void {
     this.console.log(this.chalk.red(textInfo), e);
     if (exitWithError) {
