@@ -1,6 +1,6 @@
-import * as commander from 'commander';
+import { Command } from 'commander';
 
 export interface CommandInterface {
-  register(command: commander.Command): void;
+  register(commander: Command): void;
   run(): void;
 }

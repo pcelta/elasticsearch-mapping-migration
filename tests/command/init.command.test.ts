@@ -9,16 +9,23 @@ describe('InitCommand', () => {
       const repository = {} as unknown as MigrationRepository;
       const output = {} as unknown as Output;
 
-      const mockCommanderOption = jest.fn();
+      const mockCommanderAction = jest.fn();
+      const mockCommandCreation = jest.fn();
+      const mockCommandDescription = jest.fn();
       const commander = {
-        option: mockCommanderOption,
+        action: mockCommanderAction.mockReturnThis(),
+        command: mockCommandCreation.mockReturnThis(),
+        description: mockCommandDescription.mockReturnThis(),
       } as unknown as Command;
 
       const command = new InitCommand(repository, output);
       command.register(commander);
 
-      expect(mockCommanderOption.mock.calls[0][0]).toBe('-i, --init');
-      expect(mockCommanderOption.mock.calls[0][1]).toBe('Initialize migration index on Elastic Search');
+      expect(mockCommandCreation).toBeCalledWith('init');
+      expect(mockCommandCreation).toBeCalledTimes(1);
+      expect(mockCommandDescription).toBeCalledWith('Initialize migration index on Elastic Search');
+      expect(mockCommandDescription).toBeCalledTimes(1);
+      expect(mockCommanderAction).toBeCalledTimes(1);
     });
   });
 

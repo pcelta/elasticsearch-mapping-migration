@@ -1,4 +1,4 @@
-import { Command, default as commander } from 'commander';
+import { Command } from 'commander';
 import { inject, injectable } from 'tsyringe';
 import { MigrationRepository } from '../repository/migration.repository';
 import { Output } from '../Output';
@@ -10,12 +10,10 @@ export class InitCommand {
     @inject(Output) private output: Output) {
   }
 
-  public register(command: commander.Command): void {
-    command.option(
-      '-i, --init',
-      'Initialize migration index on Elastic Search',
-      this.run.bind(this)
-    );
+  public register(commander: Command): void {
+    commander.command('init')
+      .description('Initialize migration index on Elastic Search')
+      .action(this.run.bind(this));
   }
 
   public async run(): Promise<void> {

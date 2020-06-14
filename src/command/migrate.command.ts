@@ -16,8 +16,11 @@ export class MigrateCommand {
 
   }
 
-  public register(command: Command): void {
-    command.option('-m, --migrate', 'Perform migrations on Elastic Search Mapping Indexes', this.run.bind(this));
+  public register(commander: Command): void {
+    //command.option('-m, --migrate', 'Perform migrations on Elastic Search Mapping Indexes', this.run.bind(this));
+      commander.command('migrate')
+        .description('Perform migrations on Elastic Search Mapping Indexes')
+        .action(this.run.bind(this));
   }
 
   public async run(): Promise<void> {
