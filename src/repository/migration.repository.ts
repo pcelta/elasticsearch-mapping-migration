@@ -32,7 +32,8 @@ export class MigrationRepository {
         file: migration.file,
       },
     };
-    this.client.index(record);
+
+    return this.client.index(record);
   }
 
   public async exists(migration: MigrationInterface): Promise<boolean> {
@@ -73,7 +74,7 @@ export class MigrationRepository {
     this.client.indices.create(params);
   }
 
-  public async indexExists(): Promise<any>  {
+  public async indexExists(): Promise<boolean>  {
     const params: IndicesExistsParams = {
       index: this.config.migrationIndex
     };
