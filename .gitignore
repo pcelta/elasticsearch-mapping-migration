@@ -3,3 +3,4 @@ node_modules
 bin
 coverage
 .env
+.DS_Store
