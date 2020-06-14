@@ -1,7 +1,7 @@
 import { Command } from 'commander';
 import { inject, injectable } from 'tsyringe';
 import { MigrationRepository } from '../repository/migration.repository';
-import { Output } from '../Output';
+import { Output } from '../output';
 
 @injectable()
 export class InitCommand {

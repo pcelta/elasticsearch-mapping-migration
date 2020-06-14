@@ -5,7 +5,7 @@ import * as path from "path";
 import { Config } from '../config';
 import { MigrationInterface } from '../interface/migration.interface';
 import { MigrationRepository } from '../repository/migration.repository';
-import { Output } from '../Output';
+import { Output } from '../output';
 
 @injectable()
 export class MigrateCommand {

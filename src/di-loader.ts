@@ -7,7 +7,7 @@ import { MigrateCommand } from './command/migrate.command';
 import DependencyContainer from 'tsyringe/dist/typings/types/dependency-container';
 import { Config } from './config';
 import { InitCommand } from './command/init.command';
-import { Output } from './Output';
+import { Output } from './output';
 const { createCommand } = require('commander');
 
 export class DILoader {
