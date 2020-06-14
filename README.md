@@ -6,7 +6,7 @@ This is very similar to Database Migration mechanisms such as DB Migration packa
 ## Installation
 
 ````bash
-yarn add es-migration
+yarn add elasticsearch-mapping-migration
 ````
 
 Then run
