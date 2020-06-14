@@ -8,6 +8,9 @@ import DependencyContainer from 'tsyringe/dist/typings/types/dependency-containe
 import { Config } from './config';
 import { InitCommand } from './command/init.command';
 import { Output } from './output';
+import { FileReader } from './file-reader';
+import * as fs from "fs";
+import * as path from "path";
 const { createCommand } = require('commander');
 
 export class DILoader {
@@ -22,6 +25,13 @@ export class DILoader {
       useFactory: (c) => {
         const config: Config = c.resolve(Config);
         return new Client(config.getElasticSearchConfig());
+      }
+    });
+
+    container.register<FileReader>(FileReader, {
+      useFactory: (c) => {
+        const config: Config = c.resolve(Config);
+        return new FileReader(fs, path, config);
       }
     });
 

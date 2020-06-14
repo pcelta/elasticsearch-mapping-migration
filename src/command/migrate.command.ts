@@ -1,36 +1,34 @@
 import { Command } from 'commander';
 import { inject, injectable } from 'tsyringe';
-import * as fs from "fs";
-import * as path from "path";
-import { Config } from '../config';
 import { MigrationInterface } from '../interface/migration.interface';
 import { MigrationRepository } from '../repository/migration.repository';
 import { Output } from '../output';
+import { FileReader } from '../file-reader';
+import { Config } from '../config';
 
 @injectable()
 export class MigrateCommand {
   constructor(
     @inject(Config) private config: Config,
+    @inject(FileReader) private fileReader: FileReader,
     @inject(MigrationRepository) private repository: MigrationRepository,
     @inject(Output) private output: Output) {
 
   }
 
   public register(commander: Command): void {
-    //command.option('-m, --migrate', 'Perform migrations on Elastic Search Mapping Indexes', this.run.bind(this));
       commander.command('migrate')
         .description('Perform migrations on Elastic Search Mapping Indexes')
         .action(this.run.bind(this));
   }
 
   public async run(): Promise<void> {
-    const migrationListPath: string = path.join(this.config.rootDir, '/', this.config.migrationListFile);
-
     let migrationList: any[] = [];
     try {
-      migrationList = this.getFileContentAsObject(migrationListPath);
+      migrationList = this.fileReader.getFileContentsAsObject(this.config.migrationListFile);
     } catch (e) {
       this.output.error('Your migrations.json file is invalid.', e, true);
+
       return;
     }
 
@@ -43,27 +41,31 @@ export class MigrateCommand {
       const migrationFileName: string = migrationReference.file;
       const timestamp: string = migrationReference.timestamp;
 
-      const migrationPath: string = `${this.config.rootDir}/${migrationFileName}`;
-      const rawMigration = this.getFileContentAsObject(migrationPath);
+      let rawMigration = {};
+      try {
+        rawMigration = this.fileReader.getFileContentsAsObject(migrationFileName);
+      } catch (e) {
+        this.output.error(`Invalid migration: ${migrationFileName}`, e, true);
 
-      const migration: MigrationInterface = {
-        id: timestamp,
-        type: rawMigration.type,
-        index: rawMigration.index_target,
-        body: rawMigration.migration,
-        file: migrationFileName,
-      };
+        return;
+      }
 
+      const migration: MigrationInterface = this.transformRawToMigration(timestamp, migrationFileName, rawMigration);
       if (await this.repository.exists(migration)) {
         continue;
       }
 
-      await this.repository.execute(migration).catch((e) => {
+      try {
+        await this.repository.execute(migration);
+      } catch (e) {
         this.output.failed(migration, e, true);
-      });
+
+        return;
+      }
 
       await this.repository.commit(migration);
       this.output.success(migration);
+
       totalExecuted++;
     }
 
@@ -75,8 +77,13 @@ export class MigrateCommand {
     }
   }
 
-  private getFileContentAsObject(filePath: string): any {
-    const migrationJson: Buffer = fs.readFileSync(filePath);
-    return JSON.parse(migrationJson.toString());
+  private transformRawToMigration(timestamp: string, fileName: string, raw: any): MigrationInterface  {
+    return {
+      id: timestamp,
+      type: raw.type,
+      index: raw.index_target,
+      body: raw.migration,
+      file: fileName,
+    };
   }
 }
