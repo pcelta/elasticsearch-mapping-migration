@@ -57,7 +57,10 @@
     "coveragePathIgnorePatterns": [
       "./node_modules/",
       "./bin/",
-      "./tests/"
+      "./tests/",
+      "./tests/",
+      "./di-loader.ts",
+      "./index.ts"
     ],
     "coverageDirectory": "./coverage",
     "testEnvironment": "node",
