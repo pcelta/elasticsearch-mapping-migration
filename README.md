@@ -11,7 +11,7 @@ yarn add elasticsearch-mapping-migration
 
 Then run
 ````bash
-yarn es-migration --help
+yarn esm-migration help
 ````
 
 ![Help Command](docs/imgs/help.png)
@@ -23,7 +23,7 @@ ESMIGRATION_HOST=your-elasticsearch-host
 ESMIGRATION_PORT=your-elasticsearch-port
 ESMIGRATION_PROTOCOL=your-elasticsearch-protocol-http-or-https
 ESMIGRATION_MIGRATION_LIST_FILE=path/to/your/migration-list.json
-ESMIGRATION_MIGRATION_INDEX=es-migration
+ESMIGRATION_MIGRATION_INDEX=esm-migration
 ````
 
 All paths must be relative to your project root directory. So no absolute path here. 
@@ -36,9 +36,13 @@ the variable `ESMIGRATION_MIGRATION_INDEX` set which elastic search index will b
 
 ### Initializing the migration index
 ````bash
-yarn es-migration init
+yarn esm-migration init
 ````
 This will create an index to store all performed migrations identified by timestamp
+![Help Command](docs/imgs/init-index-created.png)
+
+If the `init` is run again then you have
+![Help Command](docs/imgs/init-index-already-exists-message.png)
 
 
 ### Migration list file
@@ -58,7 +62,6 @@ Migration list example
 The migration list file contains a list of migrations to be executed. Each item has the property `timestamp` which is an unique identifier. 
 
 Once it is performed, then that `timestamp` is stored. That is how a migration is only executed once.  
-
 
 ### Migration file
 
@@ -95,7 +98,11 @@ As Elastic Search does not allow multiple field mapping update, every migration 
 
 ### Performing a migration
 ````bash
-yarn es-migration migrate
+yarn esm-migration migrate
 ````
-Then there should be a output like below
+Then there should be an output like below
 ![Migrate Command](docs/imgs/migrate.png)
+
+### Behind the scenes
+
+When the command `esm-migration migrate` is executed, the migration list file is loaded. Then all migrations within will be performed.

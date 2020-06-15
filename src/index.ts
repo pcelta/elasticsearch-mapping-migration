@@ -13,7 +13,7 @@ const chalk = require('chalk');
 const figlet = require('figlet');
 console.log(
   chalk.red(
-    figlet.textSync('esm-migration', { horizontalLayout: 'default' })
+    figlet.textSync('elasticsearch-mapping-migration', { horizontalLayout: 'default' })
   )
 );
 
