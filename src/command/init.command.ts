@@ -19,7 +19,7 @@ export class InitCommand {
   public async run(): Promise<void> {
     const exists = await this.repository.indexExists();
     if (exists) {
-      this.output.info('It is all set up! It seems --init had already been run');
+      this.output.info('It is all set up! It seems init had already been run');
       return;
     }
 

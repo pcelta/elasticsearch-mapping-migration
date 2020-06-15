@@ -5,7 +5,7 @@ import { Command } from 'commander';
 
 describe('InitCommand', () => {
   describe('InitCommand::register()', () => {
-    it('should register --init as a new command', () => {
+    it('should register init as a new command', () => {
       const repository = {} as unknown as MigrationRepository;
       const output = {} as unknown as Output;
 
@@ -31,10 +31,7 @@ describe('InitCommand', () => {
 
   describe('InitCommand::run()', () => {
     it('should create index', async () => {
-
-      const mockIndexExists = jest.fn(() => {
-        return Promise.resolve(false);
-      });
+      const mockIndexExists = jest.fn(() => Promise.resolve(false));
       const mockInitIndex = jest.fn();
       const repository = {
         initIndex: mockInitIndex,
@@ -53,6 +50,30 @@ describe('InitCommand', () => {
       expect(mockInitIndex).toBeCalledTimes(1);
       expect(mockInfo).toBeCalledTimes(1);
       expect(mockInfo).toBeCalledWith('Migration Index has been Created! You are good to go now!');
+    });
+
+    it('should not create index when it already exists', async () => {
+      const mockIndexExists = jest.fn(() => Promise.resolve(true));
+      const mockInitIndex = jest.fn();
+      const repository = {
+        initIndex: mockInitIndex,
+        indexExists: mockIndexExists,
+      } as unknown as MigrationRepository;
+
+      const mockInfo =  jest.fn();
+      const output = {
+        info: mockInfo
+      } as unknown as Output;
+
+      const command = new InitCommand(repository, output);
+      await command.run();
+
+      expect(mockIndexExists).toBeCalledTimes(1);
+
+      expect(mockInitIndex).toBeCalledTimes(0);
+
+      expect(mockInfo).toBeCalledTimes(1);
+      expect(mockInfo).toBeCalledWith('It is all set up! It seems init had already been run');
     });
   });
 });
