@@ -1,5 +1,5 @@
 {
-  "name": "es-index-migration",
+  "name": "elasticsearch-mapping-migration",
   "version": "1.0.0",
   "description": "Easy ElasticSearch Mapping Migration",
   "main": "./src/index.ts",
