@@ -16,6 +16,9 @@
     "esm-migration:dev": "node -r ts-node/register src/index.ts"
   },
   "dependencies": {
+    "@types/elasticsearch": "^5.0.32",
+    "@types/node": "^10.12.18",
+    "ts-node": "^7.0.1",
     "balanced-match": "^1.0.0",
     "chalk": "^4.1.0",
     "cli-table3": "^0.6.0",
@@ -33,15 +36,12 @@
     "@babel/preset-env": "^7.10.2",
     "@babel/preset-typescript": "^7.10.1",
     "@types/dotenv": "^6.1.1",
-    "@types/elasticsearch": "^5.0.32",
     "@types/jest": "^23.3.13",
-    "@types/node": "^10.12.18",
     "babel-jest": "^26.0.1",
     "jest": "^23.6.0",
     "jest-junit": "^6.3.0",
     "nodemon": "^1.18.9",
     "ts-jest": "^23.10.5",
-    "ts-node": "^7.0.1",
     "tsconfig-paths": "^3.7.0"
   },
   "jest": {
