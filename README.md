@@ -1,4 +1,7 @@
 # Elastic Search Mapping Migration
+[![Build Status](https://scrutinizer-ci.com/g/pcelta/elasticsearch-mapping-migration/badges/build.png?b=master)](https://scrutinizer-ci.com/g/pcelta/elasticsearch-mapping-migration/build-status/master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/pcelta/elasticsearch-mapping-migration/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/pcelta/elasticsearch-mapping-migration/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/pcelta/elasticsearch-mapping-migration/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/pcelta/elasticsearch-mapping-migration/?branch=master)
 
 Easy way of executing changes on an existing Elastic Search Mapping through code. 
 This is very similar to Database Migration mechanisms such as DB Migration package. 
