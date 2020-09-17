@@ -1,0 +1,16 @@
+checks:
+  javascript: true
+build:
+  nodes:
+    coverage:
+      tests:
+        override:
+          - command: yarn test --coverage --coverageDirectory=coverage
+            coverage:
+              file: coverage/clover.xml
+              format: clover
+    analysis:
+      tests:
+        override:
+          - js-scrutinizer-run
+    tests: true
