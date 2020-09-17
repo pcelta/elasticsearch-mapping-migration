@@ -5,9 +5,9 @@ build:
     coverage:
       tests:
         override:
-          - command: yarn test
+          - command: yarn test --coverageDirectory=coverage
             coverage:
-              file: ./coverage/clover.xml
+              file: coverage/clover.xml
               format: clover
     analysis:
       tests:
