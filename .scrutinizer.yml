@@ -5,7 +5,7 @@ build:
     coverage:
       tests:
         override:
-          - command: yarn test --coverageDirectory=/home/scrutinizer/build/coverage
+          - command: yarn test --coverage --coverageDirectory=coverage
             coverage:
               file: coverage/clover.xml
               format: clover
